@@ -1,20 +1,15 @@
 import _ from 'lodash';
-import './style.css';
-import logo from './img.jpg';
-import data from './data.xml';
+import printMe from './print.js';
 
 function component() {
     var element = document.createElement('div');
+    var btn = document.createElement('button');
 
-    element.innerHTML = _.join(['你好', '世界'], ' ');
-    element.classList.add('hello');
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-    const img = new Image();
-    img.src = logo;
-
-    element.appendChild(img);
-
-    console.log(data);
+    btn.onclick = printMe;
+    btn.innerHTML = 'BUTTON';
+    element.appendChild(btn);
 
     return element;
 }

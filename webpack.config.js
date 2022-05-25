@@ -1,12 +1,18 @@
 const path = require('path');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     mode: 'development',
-    entry: path.resolve(__dirname, 'src', 'index.js'),
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+    entry: {
+        app: path.resolve(__dirname, 'src', 'index.js'),
+        print: path.resolve(__dirname, 'src', 'print.js'),
     },
+    plugins: [
+        new CleanWebpackPlugin(), // 动态清除 dist 下无用的生成文件, 可扩展配置需要传入一个对象
+        new HtmlWebpackPlugin({ // 动态的生成最终的 HTML 文件
+            title: 'Output Management',
+        })
+    ],
     module: {
         rules: [{
             test: /\.css$/, // 正则匹配 css 文件
@@ -35,5 +41,10 @@ module.exports = {
                 'xml-loader'
             ]
         }]
-    }
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        // filename: 'bundle.js',
+        filename: '[name].bundle.js',
+    },
 }
