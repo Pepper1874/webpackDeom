@@ -3,7 +3,17 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src', 'index.js'),
+    entry: {
+        index: {
+            import: path.resolve(__dirname, 'src', 'index.js'),
+            dependOn: 'shared',
+        },
+        main: {
+            import: path.resolve(__dirname, 'src', 'main.js'),
+            dependOn: 'shared',
+        },
+        shared: 'lodash',
+    },
     module: {
         rules: [
             {
@@ -13,7 +23,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin({
+        //     dry: true,
+        //     verbose: true,
+        //     protectWebpackAssets: false,
+        // }),
         new HtmlWebpackPlugin({
             title: 'Production Mode'
         })
@@ -21,5 +35,6 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        clean: true,
     }
 }
