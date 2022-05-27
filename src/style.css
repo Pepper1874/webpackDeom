@@ -1,4 +1,9 @@
+html {
+    font-size: 100px;
+}
+
 body {
     /* background: blue; */
-    background: red;
+    background: #363636;
+    color: #efefef;
 }
